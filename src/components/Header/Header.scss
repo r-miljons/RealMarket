@@ -1,0 +1,49 @@
+@import "../../index";
+
+header {
+	padding: 0.5rem 2rem;
+	width: 100%;
+	background-color: $dark-background;
+	display: flex;
+    justify-content: space-between;
+}
+
+.nav-container {
+	display: flex;
+	gap: 80px;
+	nav {
+		height: calc(100% + 1rem);
+		margin-top: -0.5rem;
+		ul {
+			display: flex;
+			gap: 1.5rem;
+			height: 100%;
+			a {
+				li {
+					height: 100%;
+					color: $white;
+					display: flex;
+					align-items: center;
+					padding: 0 0.5rem;
+				}
+				&.active {
+					border-bottom: 7px solid $washed-orange;
+
+					li {
+						color: $washed-orange;
+						margin-top: 3.5px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.authenticate-container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    a {
+        color: $white;
+    }
+}
