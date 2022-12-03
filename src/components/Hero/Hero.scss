@@ -1,0 +1,44 @@
+@import "../../index";
+
+section#page-hero {
+	width: 100%;
+	min-height: 490px;
+	background: linear-gradient(180deg, #848fcb 31.7%, #8d81ad 100%);
+	display: flex;
+	align-items: center;
+	padding: 0 65px;
+}
+
+.gradient-btn {
+	box-shadow: 2.87179px 2.87179px 11.4872px rgba(0, 0, 0, 0.18);
+}
+
+.dark-orange-btn {
+	filter: drop-shadow(2.87179px 2.87179px 11.4872px rgba(0, 0, 0, 0.18));
+}
+
+.hero-left {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+}
+
+.hero-text {
+	h1 {
+		font-weight: 700;
+		font-size: 37.9px;
+		color: $white;
+		margin-bottom: 1rem;
+	}
+	p {
+		font-weight: 500;
+		font-size: 21.33px;
+		color: $muted-text;
+	}
+}
+
+.hero-buttons {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+}

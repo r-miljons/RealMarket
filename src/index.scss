@@ -1,12 +1,14 @@
 // variables
 $dark-background: #0d0d21;
+$background: #131429;
 $white: #fafbf6;
+$muted-text: #E0E5F8;
 $washed-orange: #f87171;
 
 // presets
 button.gradient-btn {
 	background: linear-gradient(313.49deg, #f87171 14.19%, #f44599 85.13%);
-	border-radius: 4.07427px;
+	border-radius: 4px;
 	color: $white;
 	padding: 10px 24px 12px;
 	font-weight: 500;
@@ -15,6 +17,22 @@ button.gradient-btn {
   transition: all 0.3s;
   &:hover {
     filter: saturate(2);
+  }
+}
+
+button.dark-orange-btn {
+  box-shadow: 0 0 0 4px $washed-orange;
+  padding: 6px 20px 8px;
+  border-radius: 2px;
+  font-weight: 500;
+	font-size: 16.2px;
+  color: $washed-orange;
+  background-color: $background;
+  transition: all 0.3s;
+  cursor: pointer;
+  &:hover {
+    background-color: $washed-orange;
+    color: $background;
   }
 }
 
@@ -27,20 +45,11 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-		monospace;
-}
-
 /***
     The new CSS reset - version 1.7.3 (last updated 7.8.2022)
     GitHub page: https://github.com/elad2412/the-new-css-reset
 ***/
 
-/*
-    Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
-    - The "symbol *" part is to solve Firefox SVG sprite bug
- */
 *:where(
 		:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)
 	) {

@@ -30,7 +30,7 @@ export default function Header() {
     }
 
 	return (
-		<header>
+		<header id="site-header">
 			{renderNavigation()}
             <div className="authenticate-container">
                 <Link to="/login">Login</Link>
