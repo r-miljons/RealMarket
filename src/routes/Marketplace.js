@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Marketplace() {
   return (
-    <div>Marketplace</div>
+    <div className="page-container">Marketplace</div>
   )
 }

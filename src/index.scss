@@ -1,11 +1,13 @@
 // variables
 $dark-background: #0d0d21;
+$light-background: #272734;
 $background: #131429;
 $white: #fafbf6;
 $muted-text: #E0E5F8;
 $washed-orange: #f87171;
+$alt-text: #848FCB;
 
-// presets
+// shared styles
 button.gradient-btn {
 	background: linear-gradient(313.49deg, #f87171 14.19%, #f44599 85.13%);
 	border-radius: 4px;
@@ -36,6 +38,12 @@ button.dark-orange-btn {
   }
 }
 
+.page-container {
+	min-height: 100vh;
+	position: relative;
+}
+
+// css reset
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

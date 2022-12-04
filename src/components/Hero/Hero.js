@@ -1,8 +1,11 @@
 import React from 'react'
 import heroImage from "../../assets/hero-image.svg"
+import { useNavigate } from "react-router-dom"
 import "./Hero.scss"
 
 export default function Hero() {
+    const navigate = useNavigate();
+
   return (
     <section id="page-hero">
         <div className='hero-left'>
@@ -11,8 +14,8 @@ export default function Hero() {
                 <p>Participate in the global economy of goods and services</p>
             </div>
             <div className='hero-buttons'>
-                <button className='gradient-btn'>Explore</button>
-                <button className="dark-orange-btn">Discord</button>
+                <button className='gradient-btn' onClick={() => navigate("/marketplace")}>Explore</button>
+                <button className="dark-orange-btn" onClick={() => navigate("/community")}>Discord</button>
             </div>
         </div>
 

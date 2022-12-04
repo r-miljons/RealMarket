@@ -1,0 +1,56 @@
+@import "../../index";
+
+footer#site-footer {
+	background-color: $light-background;
+	padding: 2.5rem 2rem 0;
+}
+
+.footer-nav-container {
+	display: flex;
+	width: 100%;
+	max-width: 1024px;
+	margin: 0 auto;
+	justify-content: space-between;
+	padding-bottom: 3rem;
+	#footer-logo {
+		height: max-content;
+		margin-top: -1rem;
+		margin-right: 50px;
+	}
+	nav {
+		display: flex;
+		gap: 50px;
+		margin-left: auto;
+		div {
+			min-width: 150px;
+			p {
+				color: $muted-text;
+				margin-bottom: 0.5rem;
+			}
+			ul {
+				li {
+					margin-bottom: 0.3rem;
+					a {
+						color: $alt-text;
+					}
+				}
+			}
+			.socials-list {
+				display: flex;
+				gap: 0.5rem;
+			}
+		}
+	}
+}
+
+hr {
+	border: 1px solid rgba(104, 104, 149, 0.458);
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.copyright-text {
+	color: $alt-text;
+	text-align: center;
+	padding: 1.5rem 0;
+}
