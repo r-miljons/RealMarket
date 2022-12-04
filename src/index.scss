@@ -5,6 +5,8 @@ $background: #131429;
 $white: #fafbf6;
 $muted-text: #E0E5F8;
 $washed-orange: #f87171;
+$primary-color: #F44599;
+$blue: #4F55EB;
 $alt-text: #848FCB;
 
 // shared styles
@@ -49,6 +51,7 @@ button.orange-btn {
 .page-container {
 	min-height: 100vh;
 	position: relative;
+	overflow: hidden;
 }
 
 .page-padding {
@@ -59,6 +62,20 @@ button.orange-btn {
 
 .dark-background {
 	background-color: $background;
+}
+
+// shared animation
+
+@keyframes loadingPulse {
+    0% {
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+    50% {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    100% {
+        background-color: rgba(255, 255, 255, 0.02);
+    }
 }
 
 // css reset

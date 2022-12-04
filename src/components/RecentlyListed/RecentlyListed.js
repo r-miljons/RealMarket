@@ -27,7 +27,9 @@ export default function RecentlyListed() {
   function renderListing() {
     return (
       <div className='large-item-card'>
-        <img src={listing.pictures[0]} alt="product" onError={renderDefaultImage}/>
+        <img src={listing.pictures[0] || "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081"} 
+          alt="product" 
+          onError={renderDefaultImage}/>
         <div className='product-details'>
           <div className='top'>
             <h3>{listing.title}</h3>
@@ -35,7 +37,7 @@ export default function RecentlyListed() {
           </div>
           <div className='bottom'>
             <div className='price-container'>
-              <span>Price</span>
+              <span>{listing.location}</span>
               <p>{listing.price} €</p>
             </div>
             <button className='orange-btn'>View Listing</button>
@@ -50,7 +52,6 @@ export default function RecentlyListed() {
 		if (e.target.src !== backupImage) {
 			e.target.src = backupImage;
 		}
-    console.log("?");
   }
 
   function renderLoadingPlaceholder() {
