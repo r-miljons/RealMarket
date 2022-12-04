@@ -8,11 +8,13 @@ import "../index.scss";
 
 export default function Home() {
 	return (
-		<div className="page-container">
+		<div className="page-container dark-background">
 			<Hero />
-			<RecentlyListed />
-			<MostPopular />
-			<MarketplaceFP />
+			<div className="page-padding">
+				<RecentlyListed />
+				<MostPopular />
+				<MarketplaceFP />
+			</div>
 			<About />
 		</div>
 	);

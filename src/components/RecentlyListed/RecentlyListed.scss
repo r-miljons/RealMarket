@@ -1,1 +1,129 @@
 @import "../../index";
+
+.item-section {
+	h2 {
+		margin-top: 100px;
+		font-size: 30px;
+		font-weight: 300;
+		color: $white;
+		margin-bottom: 40px;
+	}
+	.large-item-card {
+		background: linear-gradient(179.27deg, #1c1d32 0.79%, #151629 99.53%);
+		border: 1px solid #333850;
+		border-radius: 12px;
+		display: flex;
+		gap: 40px;
+		padding: 10px;
+		img {
+			border-radius: 10px;
+			height: 256px;
+			width: 256px;
+			object-fit: cover;
+			overflow: hidden;
+			flex-shrink: 0;
+		}
+		.product-details {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			gap: 40px;
+			padding-right: 30px;
+			.top {
+				h3 {
+					font-size: 28px;
+					font-weight: 400;
+					color: $white;
+					margin-bottom: 10px;
+				}
+				p {
+					font-size: 20px;
+					font-weight: 400;
+					color: $alt-text;
+					height: 80px;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+			.bottom {
+				display: flex;
+				justify-content: space-between;
+                align-items: center;
+				.price-container {
+					span {
+						font-weight: 400;
+						font-size: 16px;
+						color: $alt-text;
+					}
+					p {
+						font-weight: 500;
+						font-size: 25px;
+                        color: $white;
+					}
+				}
+			}
+		}
+	}
+
+    .large-item-card-loading {
+        width: 100%;
+        background: linear-gradient(179.27deg, #1c1d32 0.79%, #151629 99.53%);
+		border: 1px solid #333850;
+		border-radius: 12px;
+		display: flex;
+		gap: 40px;
+		padding: 10px;
+        .picture {
+            width: 256px;
+            height: 256px;
+            animation: loadingPulse 2s infinite;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+        .product-details {
+            width: 100%;
+            display: flex;
+			flex-direction: column;
+			justify-content: center;
+			gap: 40px;
+			padding-right: 30px;
+            .top {
+                .title {
+                    height: 30px;
+                    width: 100%;
+                    max-width: 200px;
+                    animation: loadingPulse 2s infinite;  
+                    margin-bottom: 10px;
+                }
+                .description {
+                    animation: loadingPulse 2s infinite;
+                    height: 80px;
+                    width: 100%;
+                    max-width: 600px;
+                }
+            }
+            .bottom {
+                .price {
+                    height: 50px;
+                    width: 100%;
+                    max-width: 100px;
+                    animation: loadingPulse 2s infinite;  
+                }
+            }
+        }
+    }
+}
+
+@keyframes loadingPulse {
+    0% {
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+    50% {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    100% {
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+}
+
+
