@@ -1,1 +1,105 @@
 @import "../../index";
+
+.small-item-card {
+	background: linear-gradient(179.27deg, #1c1d32 0.79%, #151629 99.53%);
+	border: 1px solid #333850;
+	border-radius: 12px;
+	width: 100%;
+	padding: 5px;
+    z-index: 1;
+    img {
+        border-radius: 10px;
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+    }
+    .product-details {
+        padding: 2px 8px 8px;
+        h3 {
+            font-weight: 300;
+            font-size: 17px;
+            color: $white;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        p {
+            font-weight: 400px;
+            font-size: 14px;
+            color: $alt-text;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        div {    
+            margin-left: auto;
+            color: $white;
+            text-align: right;
+            font-size: 17px;
+            font-weight: 300;
+            padding: 0 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+.marketplace-container {
+	display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+	gap: 20px;
+	position: relative;
+}
+
+.more-marketplace-btn {
+    margin: 100px 0 40px;
+    height: 38px;
+    background-color: #35354F;
+    border-radius: 50px;
+    padding: 5px 25px 7px;
+    color: $white;
+    transition: all 0.2s;
+    cursor: pointer;
+    &:hover {
+        background-color: #f4459a7d;
+    }
+}
+
+.small-item-card-loading {
+	background: linear-gradient(179.27deg, #1c1d32 0.79%, #151629 99.53%);
+	border: 1px solid #333850;
+	border-radius: 12px;
+	width: 100%;
+	padding: 5px;
+    z-index: 1;
+    .picture {
+        border-radius: 10px;
+        width: 100%;
+        height: 170px;
+        animation: $loading-animation;
+    }
+    .product-details {
+        padding: 12px 8px 8px;
+        h3 {
+            height: 17px;
+            width: 100%;
+            max-width: 140px;
+            animation: $loading-animation;
+            margin-bottom: 8px;
+        }
+        p {
+            height: 14px;
+            width: 100%;
+            max-width: 70px;
+            animation: $loading-animation;
+        }
+        div {
+            height: 18px;
+            width: 100%;
+            max-width: 70px;
+            margin-left: auto;
+            animation: $loading-animation;
+        }
+    }
+}

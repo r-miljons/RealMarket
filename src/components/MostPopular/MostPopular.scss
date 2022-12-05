@@ -19,11 +19,17 @@
             font-weight: 300;
             font-size: 21.33px;
             color: $white;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         p {
             font-weight: 400px;
             font-size: 15px;
             color: $alt-text;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         div {
             margin-left: auto;
@@ -31,6 +37,9 @@
             text-align: right;
             font-size: 20px;
             padding: 0 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 }
@@ -53,7 +62,7 @@
             position: absolute;
         }
         div:nth-child(2) {
-            background-color: #4d4dcb3c;
+            background-color: #4d4dcb5c;
             height: 1000px;
             width: 400px;
             border-radius: 50%;

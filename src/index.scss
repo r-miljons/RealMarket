@@ -58,11 +58,16 @@ button.orange-btn {
 .page-padding {
 	max-width: 1024px;
 	margin: 0 auto;
-	padding: 0 1rem;
+	padding: 0 1rem 100px;
 }
 
 .dark-background {
 	background-color: $background;
+}
+
+.space-between {
+	display: flex;
+	justify-content: space-between;
 }
 
 // shared animation

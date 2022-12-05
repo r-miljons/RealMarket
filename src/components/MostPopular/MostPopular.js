@@ -28,7 +28,7 @@ export default function MostPopular() {
 
     return listings.map((listing) => (
       <div className='medium-item-card' key={listing._id}>
-        <img src={listing.pictures[0] || "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081" } 
+        <img src={listing.pictures[0] || process.env.REACT_APP_PLACEHOLDER_IMG } 
           alt="product" 
           onError={renderDefaultImage}/>
           <div className='product-details'>
@@ -56,7 +56,7 @@ export default function MostPopular() {
   }
 
   function renderDefaultImage(e) {
-    const backupImage = "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081";
+    const backupImage = process.env.REACT_APP_PLACEHOLDER_IMG;
 		if (e.target.src !== backupImage) {
 			e.target.src = backupImage;
 		} 
