@@ -41,7 +41,18 @@ export default function MostPopular() {
   }
 
   function renderLoadingPlaceholder() {
-    return <div>Loading</div>
+
+    return [...Array(3).keys()].map(item => (
+      <div className='medium-item-card-loading' key={item}>
+        <div className='picture'></div>
+        <div className='product-details'>
+          <h3></h3>
+          <p></p>
+          <div></div>
+        </div>
+      </div>
+      )
+    )
   }
 
   function renderDefaultImage(e) {

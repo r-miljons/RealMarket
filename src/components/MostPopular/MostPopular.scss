@@ -63,3 +63,41 @@
         }
     }
 }
+
+.medium-item-card-loading {
+	background: linear-gradient(179.27deg, #1c1d32 0.79%, #151629 99.53%);
+	border: 1px solid #333850;
+	border-radius: 12px;
+	width: 100%;
+	padding: 5px;
+    z-index: 1;
+    .picture {
+        border-radius: 10px;
+        width: 100%;
+        height: 230px;
+        animation: $loading-animation;
+    }
+    .product-details {
+        padding: 12px 12px 8px;
+        h3 {
+            height: 22px;
+            width: 100%;
+            max-width: 140px;
+            animation: $loading-animation;
+            margin-bottom: 8px;
+        }
+        p {
+            height: 15px;
+            width: 100%;
+            max-width: 70px;
+            animation: $loading-animation;
+        }
+        div {
+            height: 24px;
+            width: 100%;
+            max-width: 70px;
+            margin-left: auto;
+            animation: $loading-animation;
+        }
+    }
+}
