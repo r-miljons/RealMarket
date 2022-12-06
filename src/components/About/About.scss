@@ -1,1 +1,30 @@
 @import "../../index";
+
+section#about {
+    background: linear-gradient(0deg, #848FCB 21.05%, #8D81AD 93.43%);
+    height: 600px;
+    width: 100%;
+    .content-container {
+        max-width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-evenly;
+        height: 100%;
+        align-items: center;
+        .section {
+            max-width: 300px;
+            img {
+                height: 300px;
+            }
+            h3 {
+                font-size: 28.43px;
+                color: $white;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+            p {
+                color: $muted-text;
+            }
+        }
+    }
+}
