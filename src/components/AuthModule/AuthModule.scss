@@ -1,0 +1,49 @@
+@import "../../index";
+
+.auth-container {
+    background-color: $light-background;
+    position: absolute;
+    top: 75px;
+    right: 32px;
+    padding: 1rem;
+    width: 100%;
+    max-width: 350px;
+    z-index: 1;
+    box-shadow: 0px 0px 182px 77px rgba(0, 0, 0, 0.466);
+    animation: fadeIn 0.3s forwards;
+    h3 {
+        color: $white;
+        margin-bottom: 1rem;
+    }
+    .input-wrapper {
+        margin-bottom: 1rem;
+        label {
+            color: $alt-text;
+        }
+        input {
+            background-color: $lighter-background;
+            height: 35px;
+            width: 100%;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            color: $muted-text;
+            padding: 0 0.5rem;
+        }
+        .password-wrapper {
+            position: relative;
+            input {
+                padding-right: 40px;
+            }
+            span {
+                position: absolute;
+                right: 0.5rem;
+                color: $alt-text;
+                transform: translateY(50%);
+                cursor: pointer;
+                &:hover {
+                    color: $white;
+                } 
+            }
+        }
+    }
+}

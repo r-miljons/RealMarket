@@ -1,10 +1,13 @@
-import React from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/Logo.svg";
+import Login from "../AuthModule/Login";
+import Signup from "../AuthModule/Signup";
 import "./Header.scss";
 
 export default function Header() {
-    const navigate = useNavigate();
+	const [loginOpen, setLoginOpen] = useState(false);
+	const [signupOpen, setSignupOpen] = useState(false);
 
     function renderNavigation() {
         return (
@@ -30,12 +33,26 @@ export default function Header() {
     }
 
 	return (
-		<header id="site-header">
-			{renderNavigation()}
-            <div className="authenticate-container">
-                <Link to="/login">Login</Link>
-                <button className="gradient-btn" onClick={() => navigate("/signup")}>Sign Up</button>
-            </div>
-		</header>
+		<>
+			<header id="site-header">
+				{renderNavigation()}
+            	<div className="authenticate-container">
+                	<Link onClick={() => {
+						if (signupOpen) {
+							setSignupOpen(false);
+						}
+						setLoginOpen(!loginOpen)
+					}}>Login</Link>
+                	<button className="gradient-btn" onClick={() => {
+						if (loginOpen) {
+							setLoginOpen(false);
+						}
+						setSignupOpen(!signupOpen)
+					}}>Sign Up</button>
+            	</div>
+			</header>
+			{loginOpen && <Login />}
+			{signupOpen && <Signup />}
+		</>
 	);
 }
