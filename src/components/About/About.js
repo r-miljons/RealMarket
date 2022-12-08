@@ -7,7 +7,7 @@ import tradeImg from "../../assets/trade.svg";
 export default function About() {
 	return (
 		<section id="about">
-			<div className="content-container">
+			<div className="content-wrapper">
 				<div className="section">
 					<img src={selectionImg} alt="woman selecting a product" />
 					<h3>Expansive Catalog</h3>

@@ -1,0 +1,41 @@
+@import "../../index";
+
+.item-section {
+	h2 {
+		margin-top: 100px;
+		font-size: 30px;
+		font-weight: 300;
+		color: $white;
+		margin-bottom: 40px;
+    }
+    .large-card {
+        border-radius: 12px;
+		display: flex;
+		gap: 30px;
+		padding: 40px;
+        background-color: $light-background;
+        align-items: center;
+        img {
+            margin: auto;
+        }
+        .card-text {
+            h3 {
+                font-size: 28px;
+                font-weight: 400;
+                color: $white;
+                margin-bottom: 10px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            p {
+                font-size: 20px;
+                font-weight: 400;
+                color: $muted;
+                height: 80px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}

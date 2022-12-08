@@ -4,9 +4,18 @@ section#page-hero {
 	width: 100%;
 	min-height: 490px;
 	background: linear-gradient(180deg, #848fcb 31.7%, #8d81ad 100%);
+	padding: 0 65px;
 	display: flex;
 	align-items: center;
-	padding: 0 65px;
+	justify-content: center;
+}
+
+.content-wrapper {
+	max-width: 1440px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	gap: 20px;
 }
 
 .gradient-btn {
