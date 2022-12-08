@@ -32,11 +32,9 @@ export default function Header() {
         );
     }
 
-	return (
-		<>
-			<header id="site-header">
-				{renderNavigation()}
-            	<div className="authenticate-container">
+	function renderAuthentication() {
+		return (
+			<div className="authenticate-container">
                 	<Link onClick={() => {
 						if (signupOpen) {
 							setSignupOpen(false);
@@ -49,7 +47,15 @@ export default function Header() {
 						}
 						setSignupOpen(!signupOpen)
 					}}>Sign Up</button>
-            	</div>
+            </div>
+		);
+	}
+
+	return (
+		<>
+			<header id="site-header">
+				{renderNavigation()}
+            	{renderAuthentication()}
 			</header>
 			{loginOpen && <Login />}
 			{signupOpen && <Signup />}
