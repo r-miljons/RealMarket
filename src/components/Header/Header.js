@@ -69,8 +69,8 @@ export default function Header() {
 				{renderNavigation()}
             	{user ? renderProfile() : renderAuthentication()}
 			</header>
-			{loginOpen && <Login />}
-			{signupOpen && <Signup />}
+			{loginOpen && !user && <Login setLoginOpen={setLoginOpen}/>}
+			{signupOpen && !user && <Signup setSignupOpen={setSignupOpen}/>}
 		</>
 	);
 }

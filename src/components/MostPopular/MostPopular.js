@@ -25,6 +25,12 @@ export default function MostPopular() {
 
   function renderMostPopularListings() {
     
+    const renderDefaultImage = (e) => {
+      const backupImage = process.env.REACT_APP_PLACEHOLDER_IMG;
+      if (e.target.src !== backupImage) {
+        e.target.src = backupImage;
+      } 
+    }
 
     return listings.map((listing) => (
       <div className='medium-item-card' key={listing._id}>
@@ -53,13 +59,6 @@ export default function MostPopular() {
       </div>
       )
     )
-  }
-
-  function renderDefaultImage(e) {
-    const backupImage = process.env.REACT_APP_PLACEHOLDER_IMG;
-		if (e.target.src !== backupImage) {
-			e.target.src = backupImage;
-		} 
   }
 
   return (
