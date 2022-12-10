@@ -1,4 +1,5 @@
 import React from "react";
+import AddListing from "../components/AddListing/AddListing";
 import ProfileHero from "../components/Hero/ProfileHero";
 import MyListings from "../components/MyListings/MyListings";
 import "../index.scss";
@@ -9,6 +10,7 @@ export default function Profile() {
 			<ProfileHero />
             <div className="page-padding">
                 <MyListings />
+				<AddListing />
             </div>
 		</div>
 	);
