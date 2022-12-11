@@ -49,68 +49,63 @@
 }
 
 .image-previews {
-	#upload-file {
-		background-color: $dark-background;
-		height: 90px;
-		width: 90px;
-		border-radius: 8px;
-		overflow: hidden;
-		position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-		span {
-			pointer-events: none;
-			position: absolute;
-            color: $muted;
-            font-size: 40px;
-		}
-		input {
-			height: 100%;
-			width: 100%;
-			opacity: 0;
-			cursor: pointer;
-            &::file-selector-button {
-                cursor: pointer;
-            }
-		}
-	}
+	background-color: $dark-background;
+	height: 90px;
+	width: 90px;
+	border-radius: 8px;
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .image-upload-container {
-    .upload-section {
-        height: 382px;
-        width: 100%;
-        background-color: $dark-background;
-        margin: 0.5rem 0;
-        border-radius: 8px;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        span {
-            color: $muted;
-            font-size: 40px;
-            padding: 0 10px;
-        }
-        p {
-            color: $muted;
-            padding: 10px;
-            width: 80%;
-            text-align: center;
-        }
-        input {
-            position: absolute;
-            opacity: 0;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-            &::file-selector-button {
-                cursor: pointer;
-            }
-        }
+    .highlight {
+        filter: brightness(1.5) grayscale(0.2);
     }
+	.upload-section {
+		height: 382px;
+		width: 100%;
+		background-color: $dark-background;
+		margin: 0.5rem 0;
+		border-radius: 8px;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+        
+        border: 2px $muted dashed;
+		span {
+			color: $muted;
+			font-size: 40px;
+			padding: 0 10px;
+		}
+		p {
+			color: $muted;
+			padding: 10px;
+			width: 80%;
+			text-align: center;
+		}
+		label {
+			box-shadow: 0 0 0 4px $washed-orange;
+			padding: 6px 20px 8px;
+			border-radius: 2px;
+			font-weight: 500;
+			font-size: 16.2px;
+			color: $washed-orange;
+			background-color: $background;
+			transition: all 0.3s;
+			cursor: pointer;
+			margin-top: 1rem;
+			&:hover {
+				background-color: $washed-orange;
+				color: $background;
+			}
+		}
+		input {
+			display: none;
+		}
+	}
 }
