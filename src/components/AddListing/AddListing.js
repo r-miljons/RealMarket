@@ -1,107 +1,47 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
 import "./AddListing.scss";
+import DropArea from "./DropArea";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 export default function AddListing() {
-	const uploadAreaRef = useRef();
-
-    // this useEffect handles drag and drop to upload files
-	useEffect(() => {
-		["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
-			uploadAreaRef.current.addEventListener(eventName, preventDefaults, false);
-		});
-
-		function preventDefaults(e) {
-			e.preventDefault();
-			e.stopPropagation();
-		}
-
-		["dragenter", "dragover"].forEach((eventName) => {
-			uploadAreaRef.current.addEventListener(eventName, highlight, false);
-		});
-		["dragleave", "drop"].forEach((eventName) => {
-			uploadAreaRef.current.addEventListener(eventName, unhighlight, false);
-		});
-
-		function highlight(e) {
-			uploadAreaRef.current.classList.add("highlight");
-		}
-
-		function unhighlight(e) {
-			uploadAreaRef.current.classList.remove("highlight");
-		}
-
-        uploadAreaRef.current.addEventListener('drop', handleDrop, false)
-
-        function handleDrop(e) {
-            handleFiles(e.dataTransfer.files)
-        }
-
-        function handleFiles(files) {
-            ([...files]).forEach(uploadFile)
-        }
-        
-        // send data to node server
-        function uploadFile(file) {
-            let url = process.env.REACT_APP_SERVER_URL + "/upload/image"
-            let formData = new FormData()
-            let headers = new Headers();
-
-			// TODO: figure out how to upload files
-
-
-			// METHOD 1, URI string too long
-
-            //  // output base64 string
-            //   var reader = new FileReader();
-        
-            //   reader.onload = function () {
-            //       let base64String = reader.result.replace("data:", "")
-            //           .replace(/^.+,/, "")
-            //      // "http://freeimage.host/api/1/upload/?key=6d207e02198a847aa98d0a2a901485a5&source=" + encodeURIComponent(base64String) + "&format=json"
-            //       fetch(url, {
-            //           method: 'POST',
-            //           headers: { 'Content-Type': 'application/json' },
-            //           body: JSON.stringify({ base64: base64String})
-            //       })
-            //       .then(response => { console.log(response, "response"); return response.json()})
-            //       .then(data => console.log(data, "data"))
-            //       .catch((err) => { console.log(err, err.message) })
-            //   }
-            //   reader.readAsDataURL(file);
-
-			// METHOD 2, Imgur api too busy? Too many requests
-
-            //  headers.append("Authorization", `Client-ID ${process.env.REACT_APP_IMGUR_CLIENT_ID}`);
-            //  formData.append('image', file)
-            //  console.log(formData.getAll("image"));
-    
-            //  fetch(url, {
-            //    method: 'POST',
-            //    body: formData,
-            //    headers: headers,
-            //  })
-            //  .then(response => { console.log(response, "response"); return response.json()})
-            //  .then(data => console.log(data, "data"))
-            //  .catch((err) => { console.log(err, err.message) })
-        }
-          
-
-        return () => {
-            ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
-                uploadAreaRef.current.removeEventListener(eventName, preventDefaults, false);
-            });
-            ["dragenter", "dragover"].forEach((eventName) => {
-                uploadAreaRef.current.removeEventListener(eventName, highlight, false);
-            });
-            ["dragleave", "drop"].forEach((eventName) => {
-                uploadAreaRef.current.removeEventListener(eventName, unhighlight, false);
-            });
-            uploadAreaRef.current.removeEventListener('drop', handleDrop, false)
-        };
-	}, []);
+    const [error, setError] = useState(false);
+	// form data
+	const [title, setTitle] = useState("");
+	const [description, setDescription] = useState("");
+	const [price, setPrice] = useState("");
+	const [location, setLocation] = useState("");
+	const [pictures, setPictures] = useState([]);
+	const { user } = useAuthContext();
 
 	function handleSubmit(e) {
 		e.preventDefault();
+
+		async function sendData() {
+			console.log(pictures);
+			const response = await fetch(process.env.REACT_APP_SERVER_URL + "/listings", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${user.token}`
+				},
+				body: JSON.stringify({
+					title,
+					description,
+					price,
+					location,
+					pictures
+				})
+			});
+			const data = await response.json();
+
+			if (response.ok) {
+				console.log("Success", data)
+			} else if (!response.ok) {
+				console.log(data)
+				setError(data.error);
+			}
+		}
+		sendData();
 	}
 
 	return (
@@ -112,37 +52,32 @@ export default function AddListing() {
 					<div className="left">
 						<div className="form-section">
 							<label>Title</label>
-							<input type="text" />
+							<input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
 						</div>
 						<div className="form-section">
 							<label>Description</label>
-							<textarea cols="30" rows="5"></textarea>
+							<textarea cols="30" rows="5" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
 						</div>
 						<div className="form-section">
 							<label>Price</label>
-							<input type="number" />
+							<input type="number" value={price} onChange={(e) => setPrice(e.target.value)}/>
 						</div>
 						<div className="form-section">
 							<label>Location</label>
-							<input type="text" />
+							<input type="text" value={location} onChange={(e) => setLocation(e.target.value)}/>
 						</div>
 						<button className="gradient-btn">Create</button>
 					</div>
 
 					<div className="image-upload-container">
 						<label>Upload Images</label>
-						<div className="upload-section" ref={uploadAreaRef}>
-							<span className="material-symbols-outlined">
-								add_photo_alternate
-							</span>
-							<p>
-								Drop your images here or click the button to upload your images
-							</p>
-							<label htmlFor="file-input">Upload</label>
-							<input type="file" id="file-input" multiple />
+						<DropArea setPictures={setPictures} pictures={pictures} setError={setError}/>
+						<div className="image-previews">
+							<div className="image-wrapper"></div>
 						</div>
 					</div>
 				</form>
+				{error && <div className="error">{error}</div>}
 			</div>
 		</section>
 	);

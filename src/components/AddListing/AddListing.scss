@@ -3,6 +3,7 @@
 .form-container {
 	border-radius: 12px;
 	display: flex;
+	flex-direction: column;
 	padding: 20px 40px;
 	background-color: $light-background;
 	align-items: center;
@@ -48,16 +49,13 @@
 	}
 }
 
-.image-previews {
+.image-preview-container {
 	background-color: $dark-background;
 	height: 90px;
 	width: 90px;
 	border-radius: 8px;
 	overflow: hidden;
 	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 }
 
 .image-upload-container {
