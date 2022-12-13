@@ -39,9 +39,9 @@ export default function MyListings() {
             return renderEmptyListings();
         };
 
-        return listings.map((listing) => (
+        return (<div className="listings-container">{listings.map((listing) => (
             <div className='medium-item-card' key={listing._id}>
-              <img src={listing.pictures[0] || process.env.REACT_APP_PLACEHOLDER_IMG } 
+              <img src={listing.pictures[0].url || process.env.REACT_APP_PLACEHOLDER_IMG } 
                 alt="product" 
                 onError={renderDefaultImage}/>
                 <div className='product-details'>
@@ -50,11 +50,13 @@ export default function MyListings() {
                   <div>{listing.price} €</div>
                 </div>
             </div>
-          ));
+          ))}
+          </div>
+        )
     }
     
     function renderLoadingPlaceholder() {
-        return [...Array(4).keys()].map(item => (
+        return (<div className="listings-container">{[...Array(4).keys()].map(item => (
           <div className='medium-item-card-loading' key={item}>
             <div className='picture'></div>
             <div className='product-details'>
@@ -64,6 +66,8 @@ export default function MyListings() {
             </div>
           </div>
           )
+        )}
+        </div>
         )
       }
 
@@ -84,9 +88,7 @@ export default function MyListings() {
 		<div className="item-section">
 			<h2>Your Listings</h2>
             {listings && !loading ? (
-                <div className="listings-container">
-                    {renderListings()}
-                </div>
+              renderListings()
             ) : (
                 <div className="listings-container">
                     {renderLoadingPlaceholder()}

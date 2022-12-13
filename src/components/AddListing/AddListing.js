@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "./AddListing.scss";
 import DropArea from "./DropArea";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import PicturePreviews from "./PicturePreviews";
 
 export default function AddListing() {
     const [error, setError] = useState(false);
+	const [loading, setLoading] = useState(false);
 	// form data
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
@@ -17,7 +19,7 @@ export default function AddListing() {
 		e.preventDefault();
 
 		async function sendData() {
-			console.log(pictures);
+			
 			const response = await fetch(process.env.REACT_APP_SERVER_URL + "/listings", {
 				method: "POST",
 				headers: {
@@ -42,6 +44,10 @@ export default function AddListing() {
 			}
 		}
 		sendData();
+	}
+
+	function removePicture(id) {
+		setPictures(pictures.filter(img => img.id_encoded !== id));
 	}
 
 	return (
@@ -71,10 +77,14 @@ export default function AddListing() {
 
 					<div className="image-upload-container">
 						<label>Upload Images</label>
-						<DropArea setPictures={setPictures} pictures={pictures} setError={setError}/>
-						<div className="image-previews">
-							<div className="image-wrapper"></div>
-						</div>
+						<DropArea 
+							setPictures={setPictures} 
+							pictures={pictures} 
+							setError={setError} 
+							loading={loading} 
+							setLoading={setLoading}
+						/>
+						<PicturePreviews pictures={pictures} removePicture={removePicture}/>
 					</div>
 				</form>
 				{error && <div className="error">{error}</div>}

@@ -1,12 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Spinner from "../Loading/Spinner";
 import "./AddListing.scss";
 
-export default function DropArea({setPictures, pictures, setError}) {
+export default function DropArea({setPictures, pictures, setError, loading, setLoading}) {
     const uploadAreaRef = useRef();
+    const [fileCount, setFileCount] = useState(0);
 
-    // this useEffect handles drag and drop to upload files
+    // HANDLE DRAG AND DROP UPLOADS
 	useEffect(() => {
 		const uploadAreaElement = uploadAreaRef.current;
+
+        if (!uploadAreaElement) return;
 
 		// prevent default behaviour for all relevant events to avoid unexpected behaviour
 		["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
@@ -43,39 +47,7 @@ export default function DropArea({setPictures, pictures, setError}) {
         uploadAreaElement.addEventListener('drop', handleDrop, false)
 
         function handleDrop(e) {
-            handleFiles(e.dataTransfer.files)
-        }
-
-		// HANDLE the dropped files
-        function handleFiles(files) {
-            ([...files]).forEach(uploadFile)
-        }
-        
-        // send the image to an external hosting service
-        async function uploadFile(file) {
-            let url = "https://freeimage.host/api/1/upload";
-
-			const formData = new FormData()
-			formData.append("source", file)
-
-            try {
-                const response = await fetch(url + "?key=" + process.env.REACT_APP_IMG_API_KEY, {
-                    method: "POST",
-                    body: formData
-                })
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log(data);
-                    setPictures([...pictures, data.image])
-                } else if (!response.ok) {
-                    setError("Something went wrong when uploading your images");
-                }
-            } catch (err) {
-                setError(err.message);
-            }
-			
-			
+            handleUpload(e.dataTransfer.files);
         }
           
         // cleanup event listeners
@@ -93,16 +65,82 @@ export default function DropArea({setPictures, pictures, setError}) {
         };
 	}, []);
 
-    return (
-        <div className="upload-section" ref={uploadAreaRef}>
-			<span className="material-symbols-outlined">
-				add_photo_alternate
-			</span>
-			<p>
-				Drop your images here or click the button to upload your images
-			</p>
-			<label htmlFor="file-input">Upload</label>
-			<input type="file" id="file-input" multiple />
-		</div>
-    )
+    // HANDLE BUTTON UPLOADS
+    function handleButtonUpload(e) {
+        e.preventDefault();
+        handleUpload(e.target.files)
+    }
+
+    // HANDLE UPLOAD
+    function handleUpload(files) {
+        setLoading(true);
+        setError(false);
+        handleFiles(files)
+                .then((returnedData) => {
+                    setLoading(false);
+                    setPictures(prevState => [...prevState, ...returnedData]);
+                })
+                .catch((err) => {
+                    setLoading(false);
+                    setError(err.message)});
+    }
+
+    // handle files
+    async function handleFiles(files) {
+        const filesArray = [...files];
+        const returnedData = [];
+
+        setFileCount(filesArray.length);
+
+        for (let i = 0; i < filesArray.length; i++) {
+            try {
+                const data = await uploadFile(filesArray[i]);
+                returnedData.push(data.image);
+            } catch (err) {
+                throw Error(err);
+            }
+            
+
+        }
+        return returnedData;
+    }
+    
+    // send the image to an external hosting service
+    async function uploadFile(file) {
+        let url = "https://freeimage.host/api/1/upload";
+
+        const formData = new FormData()
+        formData.append("source", file)
+
+        const response = await fetch(url + "?key=" + process.env.REACT_APP_IMG_API_KEY, {
+            method: "POST",
+            body: formData
+        })
+        
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+        } else if (!response.ok) {
+            throw Error("Something went wrong when uploading your images");
+        }
+        
+    }
+
+    if (loading) {
+        return (<div className="upload-area-loading">
+            <Spinner/>
+            <p>Uploading {fileCount} {fileCount > 1 || fileCount === 0 ? "files" : "file"}</p>
+        </div>)
+    } else {
+        return  (<div className="upload-section" ref={uploadAreaRef}>
+        <span className="material-symbols-outlined">
+            add_photo_alternate
+        </span>
+        <p>
+            Drop your images here or click the button to upload your images
+        </p>
+        <label htmlFor="file-input">Upload</label>
+        <input type="file" id="file-input" multiple onChange={handleButtonUpload}/>
+        </div>)
+    }
 }

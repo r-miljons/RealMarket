@@ -45,8 +45,9 @@
 }
 
 .most-popular-container {
-	display: flex;
-	gap: 50px;
+	display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: 20px;
 	position: relative;
     #background-blur {
         position: absolute;
