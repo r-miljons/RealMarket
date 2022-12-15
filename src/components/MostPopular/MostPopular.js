@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import "./MostPopular.scss"
 
 export default function MostPopular() {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getMostPopular() {
@@ -33,7 +35,7 @@ export default function MostPopular() {
     }
 
     return listings.map((listing) => (
-      <div className='medium-item-card' key={listing._id}>
+      <div className='medium-item-card' key={listing._id} onClick={() => navigate("/listing/" + listing._id)}>
         <img src={listing.pictures[0].url || process.env.REACT_APP_PLACEHOLDER_IMG } 
           alt="product" 
           onError={renderDefaultImage}/>

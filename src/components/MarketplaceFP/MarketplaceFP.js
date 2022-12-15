@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import "./MarketplaceFP.scss"
 
 export default function MarketplaceFP() {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getListings() {
@@ -27,7 +29,7 @@ export default function MarketplaceFP() {
     
 
     return listings.map((listing) => (
-      <div className='small-item-card' key={listing._id}>
+      <div className='small-item-card' key={listing._id} onClick={() => navigate("/listing/" + listing._id)}>
         <img src={listing.pictures[0].url || process.env.REACT_APP_PLACEHOLDER_IMG } 
           alt="product" 
           onError={renderDefaultImage}/>
@@ -66,7 +68,7 @@ export default function MarketplaceFP() {
     <section className='item-section'>
       <div className='space-between'>
         <h2>Marketplace</h2>
-        <button className='more-marketplace-btn'>More</button>
+        <button className='more-marketplace-btn' onClick={() => navigate("/marketplace")}>More</button>
       </div>
       <div className='marketplace-container'>
         { listings && !loading ? renderMarketplaceListings() : renderLoadingPlaceholder() }

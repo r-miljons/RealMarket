@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./RecentlyListed.scss";
 
 export default function RecentlyListed() {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -40,7 +42,7 @@ export default function RecentlyListed() {
               <span>{listing.location}</span>
               <p>{listing.price} €</p>
             </div>
-            <button className='orange-btn'>View Listing</button>
+            <button className='orange-btn' onClick={() => navigate("/listing/" + listing._id)}>View Listing</button>
           </div>
         </div>
       </div>

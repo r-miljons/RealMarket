@@ -15,6 +15,15 @@ export default function AddListing() {
 	const [pictures, setPictures] = useState([]);
 	const { user } = useAuthContext();
 
+	function resetForm() {
+		setError("");
+		setTitle("")
+		setDescription("");
+		setPrice("");
+		setLocation("");
+		setPictures([]);
+	}
+
 	function handleSubmit(e) {
 		e.preventDefault();
 
@@ -37,6 +46,8 @@ export default function AddListing() {
 			const data = await response.json();
 
 			if (response.ok) {
+				// TODO: handle success
+				resetForm();
 				console.log("Success", data)
 			} else if (!response.ok) {
 				console.log(data)
@@ -72,7 +83,7 @@ export default function AddListing() {
 							<label>Location</label>
 							<input type="text" value={location} onChange={(e) => setLocation(e.target.value)}/>
 						</div>
-						<button className="gradient-btn">Create</button>
+						<button className="gradient-btn" disabled={loading}>Create</button>
 					</div>
 
 					<div className="image-upload-container">

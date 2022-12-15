@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Spinner from "../Loading/Spinner";
 import "./AddListing.scss";
 
-export default function DropArea({setPictures, pictures, setError, loading, setLoading}) {
+export default function DropArea({setPictures, setError, loading, setLoading}) {
     const uploadAreaRef = useRef();
     const [fileCount, setFileCount] = useState(0);
 

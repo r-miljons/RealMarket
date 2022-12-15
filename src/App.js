@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import { useAuthContext } from "./hooks/useAuthContext";
 import Community from "./routes/Community";
 import Home from "./routes/Home";
+import ListingPage from "./routes/ListingPage";
 import Marketplace from "./routes/Marketplace";
 import Profile from "./routes/Profile";
 
@@ -22,6 +23,7 @@ function App() {
 						path="/profile"
 						element={user ? <Profile /> : <Navigate to="/" />}
 					/>
+					<Route path="/listing/:id" element={<ListingPage />} />
 				</Routes>
 				<Footer />
 			</div>
