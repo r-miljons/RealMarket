@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import userIcon from "../assets/user.svg";
+import mailIcon from "../assets/mail.svg";
+import phoneIcon from "../assets/phone-call.svg";
+import pinIcon from "../assets/map-pin.svg";
 import "./ListingPage.scss";
+import Comments from "../components/Comments/Comments";
+import MarketplaceFP from "../components/MarketplaceFP/MarketplaceFP";
 
 export default function ListingPage() {
 	const [listing, setListing] = useState();
@@ -29,28 +35,45 @@ export default function ListingPage() {
 
 	function renderListing() {
 		return (
-			<div className="large-item-card">
-				<img
-					src={listing.pictures[0].url || process.env.REACT_APP_PLACEHOLDER_IMG}
-					alt="product"
-					onError={renderDefaultImage}
-				/>
-				<div className="product-details">
-					<div className="top">
+			<>
+				<div className="item-section-listing-page">
+					<div className="left">
+						<div className="image-wrapper">
+							<img
+								src={listing.pictures[0].url || process.env.REACT_APP_PLACEHOLDER_IMG}
+								alt="product"
+								onError={renderDefaultImage}
+							/>
+						</div>
+						<div className="listing-data">
+							<p className="posted-at">Posted: {listing.createdAt}</p>
+							<div className="seller-info">
+								<div>
+									<img src={userIcon} alt="icon" />
+									<p>{listing.user.username}</p>
+								</div>
+								<div>
+									<img src={mailIcon} alt="icon" />
+									<p>listing.user.email</p>
+								</div>
+								<div>
+									<img src={phoneIcon} alt="icon" />
+									<p>listing.user.phone</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className="right">
 						<h3>{listing.title}</h3>
 						<p>{listing.description}</p>
-					</div>
-					<div className="bottom">
-						<div className="price-container">
-							<span>{listing.location}</span>
-							<p>{listing.price} €</p>
+						<div className="location">
+							<img src={pinIcon} alt="icon" />
+							<p>{listing.location}</p>
 						</div>
-            <div className="seller-info">
-              {/* TODO: Add seller info */}
-            </div>
+						<p className="price">{listing.price} €</p>
 					</div>
 				</div>
-			</div>
+			</>
 		);
 	}
 
@@ -78,11 +101,18 @@ export default function ListingPage() {
 		);
 	}
 
+	function renderCommentsSection() {
+		return <Comments listingId={listing._id} />;
+	}
+
 	return (
 		<div className="page-container dark-background">
-			<div className="page-padding">
-        <h2>Listing</h2>
+			<div className="item-wrapper">
 				{!loading ? renderListing() : renderLoadingPlaceholder()}
+			</div>	
+			<div className="page-padding">
+				{listing && renderCommentsSection()}
+				<MarketplaceFP />
 			</div>
 		</div>
 	);
