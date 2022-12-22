@@ -1,52 +1,106 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Comments.scss";
-import sendIcon from "../../assets/send.svg";
+import thumbsIcon from "../../assets/thumbs-up.svg";
+import thumbsOffIcon from "../../assets/thumbs-up-off.svg";
+import { useAuthContext } from '../../hooks/useAuthContext';
+import AddComment from './AddComment';
 
-const Comments = ({ listingId }) => {
-  const [commentText, setCommentText] = useState('');
+const Comments = ({ listing }) => {
+  const [error, setError] = useState("");
+  const [comments, setComments] = useState([]);
+  const { user } = useAuthContext();
 
-  const handleChange = (event) => {
-    setCommentText(event.target.value);
-  };
+  useEffect(() => {
+    async function getComments() {
+      try {
+        const response = await fetch(process.env.REACT_APP_SERVER_URL + '/comments/' + listing._id);
+        const data = await response.json();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+        if (response.ok) {
+          setComments(data.data)
+        }
 
-    // Send the comment to the server here
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+    getComments();
+  }, [listing._id])
 
-    // Clear the form after the comment is submitted
-    setCommentText('');
-  };
+  // RENDER COMMENTS
+  function renderUserComments() {
+
+      return comments.map(comment => {
+        let likedIds = [];
+        comment.likes.forEach(like => {
+          likedIds.push(like._id);
+        })
+
+        return (
+          <div className='user-comment' key={comment._id}>
+            <div className="title">
+              <h3>{comment.user.username}</h3>
+              <span>{comment.createdAt}</span>
+            </div>
+            <div className='text'>
+              <p>{comment.text}</p>
+            </div>
+
+            {
+              user ? (
+                <div className={likedIds.includes(user.id) ? 'likes' : 'likes off'}>
+                  <img src={likedIds.includes(user.id) ? thumbsIcon : thumbsOffIcon} alt="icon" onClick={() => handleCommentLike(comment._id)}/>
+                  <p>{likedIds.length}</p>
+                </div>
+              ) : (
+                <div className='likes off'>
+                  <img src={thumbsOffIcon} alt="icon" onClick={() => handleCommentLike(comment._id)}/>
+                  <p>{likedIds.length}</p>
+                </div>
+              )
+            }
+
+            
+            
+          </div>
+        );
+      })
+  }
+
+  async function handleCommentLike(id) {
+    // TODO: prompt user to login/signup if not already
+    if (!user) return;
+
+    try {
+      // Send the comment to the server
+      const response = await fetch(process.env.REACT_APP_SERVER_URL + '/comments/' + id, {
+        method: 'PATCH',
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + user.token
+        },
+        body: JSON.stringify({
+          likes: user
+        })
+      });
+      const data = await response.json();
+
+    } catch (err) {
+      setError(err.message);
+    }
+  }
 
   return (
     <div className='comments-section'>
       <h2>Comment</h2>
       <div className='comments-wrapper'>
-        <form onSubmit={handleSubmit}>
-          <input value={commentText} onChange={handleChange} placeholder="Tell your thoughts..."/>
-          <button type="submit">
-            <img src={sendIcon} alt="icon" />
-          </button>
-        </form>
+        <AddComment listing={listing}/>
         <div className='comments'>
-          <div className='user-comment'>
-            <div className="title">
-              <h3>comment.user.username</h3>
-              <span>2 days ago</span>
-            </div>
-            <div className='text'>
-              <p>Hey Sam, I have a question that I couldn't find an answer to so far: How do you deal with different seasons like winter for instance?</p>
-            </div>
-          </div>
-          <div className='user-comment'>
-            <div className="title">
-              <h3>comment.user.username</h3>
-              <span>2 days ago</span>
-            </div>
-            <div className='text'>
-              <p>Hey Sam, I have a question that I couldn't find an answer to so far: How do you deal with different seasons like winter for instance?</p>
-            </div>
-          </div>
+
+          {comments.length > 0 ? renderUserComments() : (
+            <p className='no-comment'>No comments to show, be the first to comment!</p>
+          )}
+
         </div>
       </div>
       

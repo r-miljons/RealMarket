@@ -21,7 +21,6 @@ export default function ListingPage() {
 					process.env.REACT_APP_SERVER_URL + "/listings/" + id
 				);
 				const data = await response.json();
-				console.log(data);
 				setListing(data.data);
 				setLoading(false);
 				setError(false);
@@ -31,9 +30,10 @@ export default function ListingPage() {
 			}
 		}
 		getListing();
-	}, []);
+	}, [id]);
 
 	function renderListing() {
+		if (!listing) return;
 		return (
 			<>
 				<div className="item-section-listing-page">
@@ -102,7 +102,7 @@ export default function ListingPage() {
 	}
 
 	function renderCommentsSection() {
-		return <Comments listingId={listing._id} />;
+		return <Comments listing={listing} />;
 	}
 
 	return (
