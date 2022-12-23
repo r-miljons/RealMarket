@@ -7,26 +7,29 @@ import Home from "./routes/Home";
 import ListingPage from "./routes/ListingPage";
 import Marketplace from "./routes/Marketplace";
 import Profile from "./routes/Profile";
+import ScrollToTop from "./utils/scrollToTop";
 
 function App() {
 	const { user } = useAuthContext();
 
 	return (
 		<BrowserRouter>
-			<div className="App">
-				<Header />
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/marketplace" element={<Marketplace />} />
-					<Route path="/community" element={<Community />} />
-					<Route
-						path="/profile"
-						element={user ? <Profile /> : <Navigate to="/" />}
-					/>
-					<Route path="/listing/:id" element={<ListingPage />} />
-				</Routes>
-				<Footer />
-			</div>
+			<ScrollToTop>
+				<div className="App">
+					<Header />
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/marketplace" element={<Marketplace />} />
+						<Route path="/community" element={<Community />} />
+						<Route
+							path="/profile"
+							element={user ? <Profile /> : <Navigate to="/" />}
+						/>
+						<Route path="/listing/:id" element={<ListingPage />} />
+					</Routes>
+					<Footer />
+				</div>
+			</ScrollToTop>
 		</BrowserRouter>
 	);
 }

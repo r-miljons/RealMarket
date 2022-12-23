@@ -3,7 +3,7 @@ import "./Comments.scss";
 import sendIcon from "../../assets/send.svg";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
-export default function AddComment({ listing }) {
+export default function AddComment({ listing, setComments }) {
   const [text, setText] = useState("");
   const [error, setError] = useState("");
   const { user } = useAuthContext();
@@ -38,6 +38,12 @@ export default function AddComment({ listing }) {
 
       if (data.error) {
         setError(data.error);
+      }
+
+      if (response.ok) {
+        setComments(prevState => {
+            return [data.data, ...prevState];
+        })
       }
    
     } catch (err) {

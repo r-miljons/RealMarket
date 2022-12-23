@@ -7,6 +7,7 @@ import pinIcon from "../assets/map-pin.svg";
 import "./ListingPage.scss";
 import Comments from "../components/Comments/Comments";
 import MarketplaceFP from "../components/MarketplaceFP/MarketplaceFP";
+import { formatDate } from "../utils/formatDate";
 
 export default function ListingPage() {
 	const [listing, setListing] = useState();
@@ -15,6 +16,7 @@ export default function ListingPage() {
 	const { id } = useParams();
 
 	useEffect(() => {
+		setLoading(true);
 		async function getListing() {
 			try {
 				const response = await fetch(
@@ -46,7 +48,7 @@ export default function ListingPage() {
 							/>
 						</div>
 						<div className="listing-data">
-							<p className="posted-at">Posted: {listing.createdAt}</p>
+							<p className="posted-at">Posted: {formatDate(listing.createdAt)}</p>
 							<div className="seller-info">
 								<div>
 									<img src={userIcon} alt="icon" />
@@ -86,17 +88,28 @@ export default function ListingPage() {
 
 	function renderLoadingPlaceholder() {
 		return (
-			<div className="large-item-card-loading">
-				<div className="picture"></div>
-				<div className="product-details">
-					<div className="top">
-						<div className="title"></div>
-						<div className="description"></div>
-					</div>
-					<div className="bottom">
-						<div className="price"></div>
-					</div>
+			<>
+			<div className="item-loading">
+				<div className="left">
+					<div className="img"></div>
+					<div className="info"></div>
+					<div className="info"></div>
 				</div>
+				<div className="right">
+					<div className="title"></div>
+					<div className="info"></div>
+					<div className="info"></div>
+				</div>
+			</div>
+			</>
+		);
+	}
+
+	function renderCommentsPlaceholder() {
+		return (
+			<div className='comments-section-loading'>
+      			<h2>Comment</h2>
+      			<div className='comments-wrapper'></div>
 			</div>
 		);
 	}
@@ -111,7 +124,7 @@ export default function ListingPage() {
 				{!loading ? renderListing() : renderLoadingPlaceholder()}
 			</div>	
 			<div className="page-padding">
-				{listing && renderCommentsSection()}
+				{listing && !loading ? renderCommentsSection() : renderCommentsPlaceholder()}
 				<MarketplaceFP />
 			</div>
 		</div>

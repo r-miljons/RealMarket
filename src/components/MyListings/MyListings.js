@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./MyListings.scss";
 import emptyDocuments from "../../assets/empty-documents.svg";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function MyListings() {
     const [listings, setListings] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const { user } = useAuthContext();
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function getMyListings() {
@@ -40,7 +42,7 @@ export default function MyListings() {
         };
 
         return (<div className="listings-container">{listings.map((listing) => (
-            <div className='medium-item-card' key={listing._id}>
+            <div className='medium-item-card' key={listing._id} onClick={() => navigate("/listing/" + listing._id)}>
               <img src={listing.pictures[0].url || process.env.REACT_APP_PLACEHOLDER_IMG } 
                 alt="product" 
                 onError={renderDefaultImage}/>
@@ -87,13 +89,7 @@ export default function MyListings() {
 	return (
 		<div className="item-section">
 			<h2>Your Listings</h2>
-            {listings && !loading ? (
-              renderListings()
-            ) : (
-                <div className="listings-container">
-                    {renderLoadingPlaceholder()}
-                </div>
-            )}
+            {listings && !loading ? renderListings() : renderLoadingPlaceholder()}
 		</div>
 	);
 }
