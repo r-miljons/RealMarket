@@ -70,6 +70,26 @@
 						padding-bottom: 3px;
 					}
 				}
+                .more {
+                    margin-left: -1rem;
+                    cursor: pointer;
+                    position: relative;
+                    .module {
+                        position: absolute;
+                        background-color: $dark-background;
+                        left: 0.5rem;
+                        border-radius: 4px;
+                        overflow: hidden;
+                        li {
+                            padding: 5px 15px;
+                            color: $white;
+                            transition: all 0.2s;
+                            &:hover {
+                                background-color: $alt-text;
+                            }
+                        }
+                    }
+                }
 				.text {
 					color: $white;
 					font-size: 16px;
