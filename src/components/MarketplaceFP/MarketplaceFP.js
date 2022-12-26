@@ -30,7 +30,7 @@ export default function MarketplaceFP() {
 
     return listings.map((listing) => (
       <div className='small-item-card' key={listing._id} onClick={() => navigate("/listing/" + listing._id)}>
-        <img src={listing.pictures[0].url || process.env.REACT_APP_PLACEHOLDER_IMG } 
+        <img src={listing.pictures[0]?.url || process.env.REACT_APP_PLACEHOLDER_IMG } 
           alt="product" 
           onError={renderDefaultImage}/>
           <div className='product-details'>

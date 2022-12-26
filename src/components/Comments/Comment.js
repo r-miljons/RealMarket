@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { formatDate } from "../../utils/formatDate";
 import thumbsIcon from "../../assets/thumbs-up.svg";
@@ -8,22 +8,17 @@ import ClickOutsideWrapper from "../../utils/ClickOutsideWrapper";
 
 export default function Comment({comment, setComments}) {
     const [error, setError] = useState("");
-    const [likedIds, setLikedIds] = useState([]);
     const { user } = useAuthContext();
     const [openMore, setOpenMore] = useState(false);
 
-    useEffect(() => {
-        let ids = [];
-        comment.likes.forEach(like => {
-          likedIds.push(like._id);
-        })
-        setLikedIds(ids);
-    }, []);
+    const likedIds = comment.likes.map(like => {
+        return like._id
+      })
 
     async function handleCommentLike(id) {
         // TODO: prompt user to login/signup if not already
         if (!user) return;
-    
+
         // handle like on the frontend
         setComments(prevState => {
     
@@ -35,11 +30,12 @@ export default function Comment({comment, setComments}) {
           prevState.forEach(comment => {
     
             if (comment._id === id) {
-              // create an array of ids from all the users that liked the comment
-              let likedIds = [];
-              comment.likes.forEach(like => {
-                likedIds.push(like._id);
-              })
+                
+            //   // create an array of ids from all the users that liked the comment
+            //   let likedIds = [];
+            //   comment.likes.forEach(like => {
+            //     likedIds.push(like._id);
+            //   })
               
               // check if the current users id is in the array of likedIds
               if (likedIds.includes(user.id)) {
@@ -49,13 +45,14 @@ export default function Comment({comment, setComments}) {
     
               } else {
                 // if not add a like to likes
+                
                 comment.likes.push({_id: user.id, username: user.username})
               }
             
             }
             updatedComments.push(comment);
           });
-    
+
         // return updated comments
         return [...updatedComments];
     
@@ -75,7 +72,11 @@ export default function Comment({comment, setComments}) {
             })
           });
           const data = await response.json();
-    
+          
+          if (data.error) {
+            setError(data.error);
+          }
+
         } catch (err) {
           setError(err.message);
         }
@@ -108,7 +109,7 @@ export default function Comment({comment, setComments}) {
 		<div className="user-comment">
 			<div className="title">
 				<h3>{comment.user.username}</h3>
-				{comment.user._id === user.id && (
+				{user && comment.user._id === user.id && (
                     <div className="more">
                         <span className="material-symbols-outlined" onClick={() => {setOpenMore(!openMore)}}>more_vert</span>
                         {openMore && <div className="module">

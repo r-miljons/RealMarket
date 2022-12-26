@@ -1,0 +1,74 @@
+@import "../../index.scss";
+
+.configure-account {
+	h2 {
+		margin-top: 100px;
+		font-size: 30px;
+		font-weight: 300;
+		color: $white;
+		margin-bottom: 40px;
+	}
+	.container {
+		border-radius: 12px;
+		padding: 20px 40px;
+		background-color: $light-background;
+		align-items: center;
+		width: 100%;
+        display: flex;
+        .right {
+            margin: 0 auto;
+        }
+        p {
+            color: $alt-text;
+            font-size: 22px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            label {
+                color: $muted-text;
+            }
+            input {
+                background-color: $lighter-background;
+                height: 35px;
+                width: 100%;
+                max-width: 350px;
+                border-radius: 4px;
+                margin-top: 0.5rem;
+                color: $muted-text;
+                padding: 0 0.5rem;
+                margin-bottom: 20px;
+            }
+            .save-container {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                button {
+                    width: max-content;
+                    margin: 16px 0;
+                }
+                span {
+                    color: $white;
+                    animation: fadeOut 2s forwards;
+                }
+                .error {
+                    margin-top: 0;
+                }
+            }
+        }
+	}
+}
+
+@keyframes fadeOut{
+    0% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

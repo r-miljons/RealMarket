@@ -48,7 +48,7 @@ export default function AddListing() {
 			if (response.ok) {
 				// TODO: handle success
 				resetForm();
-				console.log("Success", data)
+				window.location.reload();
 			} else if (!response.ok) {
 				console.log(data)
 				setError(data.error);

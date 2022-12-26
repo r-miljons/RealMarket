@@ -42,7 +42,7 @@ export default function ListingPage() {
 					<div className="left">
 						<div className="image-wrapper">
 							<img
-								src={listing.pictures[0].url || process.env.REACT_APP_PLACEHOLDER_IMG}
+								src={listing.pictures[0]?.url || process.env.REACT_APP_PLACEHOLDER_IMG}
 								alt="product"
 								onError={renderDefaultImage}
 							/>
@@ -54,14 +54,14 @@ export default function ListingPage() {
 									<img src={userIcon} alt="icon" />
 									<p>{listing.user.username}</p>
 								</div>
-								<div>
+								{listing.user.email && <div>
 									<img src={mailIcon} alt="icon" />
-									<p>listing.user.email</p>
-								</div>
-								<div>
+									<p>{listing.user.email}</p>
+								</div>}
+								{listing.user.phone && <div>
 									<img src={phoneIcon} alt="icon" />
-									<p>listing.user.phone</p>
-								</div>
+									<p>{listing.user.phone}</p>
+								</div>}
 							</div>
 						</div>
 					</div>

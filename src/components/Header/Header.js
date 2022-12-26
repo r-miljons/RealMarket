@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/Logo.svg";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import ClickOutsideWrapper from "../../utils/ClickOutsideWrapper";
 import Login from "../AuthModule/Login";
 import Signup from "../AuthModule/Signup";
 import "./Header.scss";
@@ -69,8 +70,8 @@ export default function Header() {
 				{renderNavigation()}
             	{user ? renderProfile() : renderAuthentication()}
 			</header>
-			{loginOpen && !user && <Login setLoginOpen={setLoginOpen}/>}
-			{signupOpen && !user && <Signup setSignupOpen={setSignupOpen}/>}
+			{loginOpen && !user && <ClickOutsideWrapper setIsOpen={setLoginOpen}><Login setLoginOpen={setLoginOpen}/></ClickOutsideWrapper>}
+			{signupOpen && !user && <ClickOutsideWrapper setIsOpen={setSignupOpen}><Signup setSignupOpen={setSignupOpen}/></ClickOutsideWrapper>}
 		</>
 	);
 }

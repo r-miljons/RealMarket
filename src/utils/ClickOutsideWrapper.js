@@ -10,7 +10,7 @@ export default function ClickOutsideWrapper({children, setIsOpen}) {
         return () => {
             document.removeEventListener("click", handleClickOutside);
         }
-    },[]);
+    });
 
     function handleClickOutside(e) {
         if (wrapperRef.current.contains(e.target)) return;

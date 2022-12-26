@@ -29,7 +29,7 @@ export default function RecentlyListed() {
   function renderListing() {
     return (
       <div className='large-item-card'>
-        <img src={listing.pictures[0].url || process.env.REACT_APP_PLACEHOLDER_IMG} 
+        <img src={listing.pictures[0]?.url || process.env.REACT_APP_PLACEHOLDER_IMG} 
           alt="product" 
           onError={renderDefaultImage}/>
         <div className='product-details'>
