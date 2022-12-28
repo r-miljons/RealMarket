@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useErrorContext } from '../../hooks/useErrorContext';
 import "./MostPopular.scss"
 
 export default function MostPopular() {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const {dispatch} = useErrorContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,14 +17,13 @@ export default function MostPopular() {
         const data = await response.json();
         setListings(data.data);
         setLoading(false);
-        setError(false);
       } catch (err) {
         setLoading(false);
-        setError(err.message || err);
+        dispatch({type: "SET_ERROR", payload: err.message})
       }
     }
     getMostPopular();
-  }, [])
+  }, [dispatch])
 
   function renderMostPopularListings() {
     
@@ -54,7 +54,7 @@ export default function MostPopular() {
       <div className='medium-item-card-loading' key={item}>
         <div className='picture'></div>
         <div className='product-details'>
-          <h3></h3>
+        <div className="h3"></div>
           <p></p>
           <div></div>
         </div>

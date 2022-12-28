@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import "./Comments.scss";
 import AddComment from './AddComment';
 import Comment from './Comment';
+import { useErrorContext } from '../../hooks/useErrorContext';
 
 const Comments = ({ listing }) => {
-  const [error, setError] = useState("");
+  const {dispatch} = useErrorContext();
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -21,15 +22,15 @@ const Comments = ({ listing }) => {
         }
         if (!response.ok) {
           setLoading(false);
-          setError("Something went wrong while trying to load the comments")
+          dispatch({type: "SET_ERROR", payload: "Something went wrong while trying to load the comments"})
         }
 
       } catch (err) {
-        setError(err.message);
+        dispatch({type: "SET_ERROR", payload: err.message})
       }
     }
     getComments();
-  }, [listing._id])
+  }, [listing._id, dispatch])
 
   // RENDER COMMENTS
   function renderUserComments() {

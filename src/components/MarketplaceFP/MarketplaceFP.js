@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useErrorContext } from '../../hooks/useErrorContext';
 import "./MarketplaceFP.scss"
 
 export default function MarketplaceFP() {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const { dispatch } = useErrorContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,14 +17,13 @@ export default function MarketplaceFP() {
         const data = await response.json();
         setListings(data.data);
         setLoading(false);
-        setError(false);
       } catch (err) {
         setLoading(false);
-        setError(err.message || err);
+        dispatch({type: "SET_ERROR", payload: err.message})
       }
     }
     getListings();
-  }, [])
+  }, [dispatch])
 
   function renderMarketplaceListings() {
     
@@ -48,7 +48,7 @@ export default function MarketplaceFP() {
       <div className='small-item-card-loading' key={item}>
         <div className='picture'></div>
         <div className='product-details'>
-          <h3></h3>
+          <div className='h3'></div>
           <p></p>
           <div></div>
         </div>

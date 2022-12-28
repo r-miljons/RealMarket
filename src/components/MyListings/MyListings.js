@@ -3,12 +3,13 @@ import "./MyListings.scss";
 import emptyDocuments from "../../assets/empty-documents.svg";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import { useErrorContext } from "../../hooks/useErrorContext";
 
 export default function MyListings() {
     const [listings, setListings] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
     const { user } = useAuthContext();
+    const { dispatch } = useErrorContext();
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -19,14 +20,13 @@ export default function MyListings() {
             const data = await response.json();
             setListings(data.data);
             setLoading(false);
-            setError(false);
           } catch (err) {
             setLoading(false);
-            setError(err.message || err);
+            dispatch({type: "SET_ERROR", payload: err.message})
           }
         }
         getMyListings();
-    }, [])
+    }, [dispatch, user.id])
 
     function renderListings() {
 
@@ -62,7 +62,7 @@ export default function MyListings() {
           <div className='medium-item-card-loading' key={item}>
             <div className='picture'></div>
             <div className='product-details'>
-              <h3></h3>
+              <div className="h3"></div>
               <p></p>
               <div></div>
             </div>

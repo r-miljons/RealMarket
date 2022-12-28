@@ -9,11 +9,12 @@ import Comments from "../components/Comments/Comments";
 import MarketplaceFP from "../components/MarketplaceFP/MarketplaceFP";
 import { formatDate } from "../utils/formatDate";
 import ImageCarousel from "../components/ListingImgCarousel/ImageCarousel";
+import { useErrorContext } from "../hooks/useErrorContext";
 
 export default function ListingPage() {
 	const [listing, setListing] = useState();
 	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(false);
+	const { dispatch } = useErrorContext();
 	const { id } = useParams();
 
 	useEffect(() => {
@@ -26,18 +27,17 @@ export default function ListingPage() {
 				const data = await response.json();
 				setListing(data.data);
 				setLoading(false);
-				setError(false);
 			} catch (err) {
 				setLoading(false);
-				setError(err.message || err);
+				dispatch({type: "SET_ERROR", payload: err.message})
 			}
 		}
 		getListing();
-	}, [id]);
+	}, [id, dispatch]);
 
 	function renderListing() {
 		if (!listing) return;
-		
+
 		return (
 			<>
 				<div className="item-section-listing-page">

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/Logo.svg";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useLogout } from "../../hooks/useLogout";
 import ClickOutsideWrapper from "../../utils/ClickOutsideWrapper";
 import Login from "../AuthModule/Login";
 import Signup from "../AuthModule/Signup";
@@ -12,6 +13,7 @@ export default function Header() {
 	const [signupOpen, setSignupOpen] = useState(false);
 	const { user } = useAuthContext();
 	const navigate = useNavigate();
+	const { logout } = useLogout();
 
     function renderNavigation() {
         return (
@@ -57,11 +59,18 @@ export default function Header() {
 
 	function renderProfile() {
 		return (
-			<button className="profile-container" onClick={() => navigate("/profile")}>
-				<p>{user.username}</p>
-				<span className="material-symbols-outlined">account_circle</span>
-			</button>
+			<div className="authenticate-container">
+				<button className="logout" onClick={handleLogout}>Logout</button>
+				<button className="profile-container" onClick={() => navigate("/profile")}>
+					<p>{user.username}</p>
+					<span className="material-symbols-outlined">account_circle</span>
+				</button>
+			</div>
 		);
+	}
+
+	function handleLogout() {
+		logout();
 	}
 
 	return (

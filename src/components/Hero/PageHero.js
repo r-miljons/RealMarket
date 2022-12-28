@@ -16,7 +16,7 @@ export default function PageHero() {
                 </div>
                 <div className='hero-buttons'>
                     <button className='gradient-btn' onClick={() => navigate("/marketplace")}>Explore</button>
-                    <button className="dark-orange-btn" onClick={() => navigate("/community")}>Discord</button>
+                    <button className="dark-orange-btn" onClick={() => navigate("/community")}>Community</button>
                 </div>
             </div>
 

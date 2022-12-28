@@ -5,9 +5,10 @@ import thumbsIcon from "../../assets/thumbs-up.svg";
 import thumbsOffIcon from "../../assets/thumbs-up-off.svg";
 import "./Comments.scss";
 import ClickOutsideWrapper from "../../utils/ClickOutsideWrapper";
+import { useErrorContext } from "../../hooks/useErrorContext";
 
 export default function Comment({comment, setComments}) {
-    const [error, setError] = useState("");
+    const {dispatch} = useErrorContext();
     const { user } = useAuthContext();
     const [openMore, setOpenMore] = useState(false);
 
@@ -74,11 +75,11 @@ export default function Comment({comment, setComments}) {
           const data = await response.json();
           
           if (data.error) {
-            setError(data.error);
+            dispatch({type: "SET_ERROR", payload: data.error})
           }
 
         } catch (err) {
-          setError(err.message);
+            dispatch({type: "SET_ERROR", payload: err.message})
         }
     }
 
@@ -91,7 +92,6 @@ export default function Comment({comment, setComments}) {
                 "Authorization": "Bearer " + user.token
               }
             });
-            const data = await response.json();
 
             if (response.ok) {
                 setComments(prevState => {
@@ -99,9 +99,12 @@ export default function Comment({comment, setComments}) {
                     return updatedComments;
                 });
             }
+            if (!response.ok) {
+                dispatch({type: "SET_ERROR", payload: "Something went wrong while trying to delete the comment"})
+            }
       
           } catch (err) {
-            setError(err.message);
+            dispatch({type: "SET_ERROR", payload: err.message})
           }
     }
 

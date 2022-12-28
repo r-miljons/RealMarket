@@ -32,7 +32,7 @@ export default function ConfigureAccount() {
         } catch (err) {
             setError(err.message);
         }
-    }, []);
+    }, [user.id]);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -65,7 +65,7 @@ export default function ConfigureAccount() {
     };
 
 	return (
-		<section className="configure-account">
+		<section className="configure-account" id="configure-account">
 			<h2>Configure Account</h2>
 			<div className="container">
                 <div className="left">

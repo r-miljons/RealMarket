@@ -62,7 +62,7 @@ export default function AddListing() {
 	}
 
 	return (
-		<section className="item-section">
+		<section className="item-section" id="add-listing">
 			<h2>Add a Listing</h2>
 			<div className="form-container">
 				<form onSubmit={handleSubmit}>

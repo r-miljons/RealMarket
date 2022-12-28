@@ -1,0 +1,25 @@
+@import "../../index.scss";
+
+.error-module {
+    background-color: rgb(153, 0, 0);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 0.5em 1rem;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: fadeIn 1s forwards;
+    p {
+        color: $white;
+        max-width: 350px;
+    }
+    span {
+        color: $white;
+        align-self: flex-start;
+        font-size: 20px;
+        cursor: pointer;
+    }
+}

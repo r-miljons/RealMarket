@@ -15,7 +15,7 @@ section#page-hero {
 	margin: 0 auto;
 	display: flex;
 	align-items: center;
-	gap: 20px;
+	gap: 60px;
 }
 
 .gradient-btn {
@@ -43,6 +43,7 @@ section#page-hero {
 		font-weight: 500;
 		font-size: 21.33px;
 		color: $muted-text;
+		max-width: 600px;
 	}
 }
 
@@ -50,4 +51,9 @@ section#page-hero {
 	display: flex;
 	align-items: center;
 	gap: 30px;
+	.error {
+		margin: 0;
+		color:rgb(116, 0, 21);
+		border-color: rgb(116, 0, 21);
+	}
 }

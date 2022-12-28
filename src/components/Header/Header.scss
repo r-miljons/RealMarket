@@ -52,6 +52,13 @@ header#site-header {
     a {
         color: $white;
     }
+	.logout {
+		color: $white;
+		cursor: pointer;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }
 
 .profile-container {
