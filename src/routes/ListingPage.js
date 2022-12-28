@@ -8,6 +8,7 @@ import "./ListingPage.scss";
 import Comments from "../components/Comments/Comments";
 import MarketplaceFP from "../components/MarketplaceFP/MarketplaceFP";
 import { formatDate } from "../utils/formatDate";
+import ImageCarousel from "../components/ListingImgCarousel/ImageCarousel";
 
 export default function ListingPage() {
 	const [listing, setListing] = useState();
@@ -36,17 +37,25 @@ export default function ListingPage() {
 
 	function renderListing() {
 		if (!listing) return;
+		
 		return (
 			<>
 				<div className="item-section-listing-page">
 					<div className="left">
-						<div className="image-wrapper">
-							<img
-								src={listing.pictures[0]?.url || process.env.REACT_APP_PLACEHOLDER_IMG}
-								alt="product"
-								onError={renderDefaultImage}
-							/>
-						</div>
+						{
+							listing.pictures?.length < 1 ? (
+								<div className="image-wrapper">
+									<img
+										src={listing.pictures[0]?.url || process.env.REACT_APP_PLACEHOLDER_IMG}
+										alt="product"
+										onError={renderDefaultImage}
+									/>
+								</div> 
+							) : (
+								<ImageCarousel pictures={listing.pictures}/>
+							)
+						}
+						
 						<div className="listing-data">
 							<p className="posted-at">Posted: {formatDate(listing.createdAt)}</p>
 							<div className="seller-info">
