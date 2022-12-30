@@ -38,7 +38,7 @@ export default function ListingPage() {
 
 	function renderListing() {
 		if (!listing) return;
-
+		
 		return (
 			<>
 				<div className="item-section-listing-page">
@@ -59,6 +59,7 @@ export default function ListingPage() {
 						
 						<div className="listing-data">
 							<p className="posted-at">Posted: {formatDate(listing.createdAt)}</p>
+							<p>views: {listing.views}</p>
 							<div className="seller-info">
 								<div>
 									<img src={userIcon} alt="icon" />
