@@ -12,7 +12,7 @@ export default function PageHero() {
             <div className='hero-left'>
                 <div className='hero-text'>
                     <h1>Explore products from all over the world</h1>
-                    <p>Participate in the global economy of goods and services</p>
+                    <p>Welcome to RealMarket, a totally real market! Here, you'll have the opportunity to discover and purchase products from every corner of the world. From exotic spices and handcrafted textiles, to unique home decor and one-of-a-kind fashion pieces, all created by users like you.</p>
                 </div>
                 <div className='hero-buttons'>
                     <button className='gradient-btn' onClick={() => navigate("/marketplace")}>Explore</button>

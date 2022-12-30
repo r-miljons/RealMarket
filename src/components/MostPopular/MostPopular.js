@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useErrorContext } from '../../hooks/useErrorContext';
+import { renderDefaultImage } from '../../utils/renderDefaultImage';
 import "./MostPopular.scss"
 
 export default function MostPopular() {
@@ -25,14 +26,7 @@ export default function MostPopular() {
     getMostPopular();
   }, [dispatch])
 
-  function renderMostPopularListings() {
-    
-    const renderDefaultImage = (e) => {
-      const backupImage = process.env.REACT_APP_PLACEHOLDER_IMG;
-      if (e.target.src !== backupImage) {
-        e.target.src = backupImage;
-      } 
-    }
+  function renderListings() {
 
     return listings.map((listing) => (
       <div className='medium-item-card' key={listing._id} onClick={() => navigate("/listing/" + listing._id)}>
@@ -67,7 +61,7 @@ export default function MostPopular() {
     <section className='item-section'>
       <h2>Most Popular</h2>
       <div className='most-popular-container'>
-        { listings && !loading ? renderMostPopularListings() : renderLoadingPlaceholder() }
+        { listings && !loading ? renderListings() : renderLoadingPlaceholder() }
         <div id='background-blur'>
           <div></div>
           <div></div>

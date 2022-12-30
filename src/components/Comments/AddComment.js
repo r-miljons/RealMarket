@@ -2,22 +2,19 @@ import React, { useState } from "react";
 import "./Comments.scss";
 import sendIcon from "../../assets/send.svg";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useErrorContext } from "../../hooks/useErrorContext";
 
 export default function AddComment({ listing, setComments }) {
   const [text, setText] = useState("");
-  const [error, setError] = useState("");
+  const {dispatch} = useErrorContext();
   const { user } = useAuthContext();
 
   // HANDLE COMMENT SUBMIT
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
-        setError("Login to add a comment.");
+        dispatch({ type: "SET_ERROR", payload: "Login to leave a comment" });
         return;
-    }
-
-    if (error) {
-        setError("");
     }
 
     try {
@@ -37,7 +34,7 @@ export default function AddComment({ listing, setComments }) {
       const data = await response.json();
 
       if (data.error) {
-        setError(data.error);
+        dispatch({ type: "SET_ERROR", payload: data.error });
       }
 
       if (response.ok) {
@@ -47,7 +44,7 @@ export default function AddComment({ listing, setComments }) {
       }
    
     } catch (err) {
-      setError(err.message);
+        dispatch({ type: "SET_ERROR", payload: err.message });
     }
 
     // Clear the form after the comment is submitted
@@ -66,7 +63,6 @@ export default function AddComment({ listing, setComments }) {
 				<img src={sendIcon} alt="icon" />
 			</button>
 		</form>
-        {error && <div className="error">{error}</div>}
         </>
 	);
 }

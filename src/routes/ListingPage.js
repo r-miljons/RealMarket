@@ -10,6 +10,7 @@ import MarketplaceFP from "../components/MarketplaceFP/MarketplaceFP";
 import { formatDate } from "../utils/formatDate";
 import ImageCarousel from "../components/ListingImgCarousel/ImageCarousel";
 import { useErrorContext } from "../hooks/useErrorContext";
+import { renderDefaultImage } from "../utils/renderDefaultImage";
 
 export default function ListingPage() {
 	const [listing, setListing] = useState();
@@ -86,13 +87,6 @@ export default function ListingPage() {
 				</div>
 			</>
 		);
-	}
-
-	function renderDefaultImage(e) {
-		const backupImage = process.env.REACT_APP_PLACEHOLDER_IMG;
-		if (e.target.src !== backupImage) {
-			e.target.src = backupImage;
-		}
 	}
 
 	function renderLoadingPlaceholder() {

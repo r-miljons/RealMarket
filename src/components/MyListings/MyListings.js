@@ -4,6 +4,7 @@ import emptyDocuments from "../../assets/empty-documents.svg";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import { useErrorContext } from "../../hooks/useErrorContext";
+import { renderDefaultImage } from "../../utils/renderDefaultImage";
 
 export default function MyListings() {
     const [listings, setListings] = useState(null);
@@ -29,13 +30,6 @@ export default function MyListings() {
     }, [dispatch, user.id])
 
     function renderListings() {
-
-        const renderDefaultImage = (e) => {
-            const backupImage = process.env.REACT_APP_PLACEHOLDER_IMG;
-            if (e.target.src !== backupImage) {
-              e.target.src = backupImage;
-            } 
-          }
 
         if (listings && listings.length === 0) {
             return renderEmptyListings();

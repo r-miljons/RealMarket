@@ -1,0 +1,25 @@
+@import "../../index.scss";
+
+.marketplace-listings-container {
+    margin-top: 80px;
+    padding: 30px 40px;
+    background-color: $light-background;
+    border-radius: 5px;
+    .listings-wrapper {
+        margin-top: 50px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        position: relative;
+    }
+    .actions-container {
+        display: flex;
+        gap: 20px;
+    }
+    .search-text {
+        text-align: center;
+        font-size: 18px;
+        color: $white;
+        margin-top: 50px;
+    }
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useErrorContext } from '../../hooks/useErrorContext';
+import { renderDefaultImage } from '../../utils/renderDefaultImage';
 import "./MarketplaceFP.scss"
 
 export default function MarketplaceFP() {
@@ -55,13 +56,6 @@ export default function MarketplaceFP() {
       </div>
       )
     )
-  }
-
-  function renderDefaultImage(e) {
-    const backupImage = process.env.REACT_APP_PLACEHOLDER_IMG;
-		if (e.target.src !== backupImage) {
-			e.target.src = backupImage;
-		} 
   }
 
   return (

@@ -18,7 +18,11 @@ export default function Comment({comment, setComments}) {
 
     async function handleCommentLike(id) {
         // TODO: prompt user to login/signup if not already
-        if (!user) return;
+        if (!user) {
+            dispatch({ type: "SET_ERROR", payload: "Login to leave a like" });
+            return;
+        }
+        
 
         // handle like on the frontend
         setComments(prevState => {

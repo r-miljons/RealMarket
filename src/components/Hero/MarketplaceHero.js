@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import heroImage from "../../assets/marketplace-img.svg";
+import { useErrorContext } from "../../hooks/useErrorContext";
 
 export default function MarketplaceHero() {
 	const navigate = useNavigate();
 	const { user } = useAuthContext();
+    const { dispatch } = useErrorContext();
     const [error, setError] = useState("");
 
 	function handleAddListing() {
 		if (user) {
 			navigate("/profile#add-listing");
 		} else {
-            setError("Login in to add a listing");
+            dispatch({type: "SET_ERROR", payload: "Login to add a listing"});
         }
 	}
 

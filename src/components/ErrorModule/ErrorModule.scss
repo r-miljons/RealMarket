@@ -11,7 +11,8 @@
     bottom: 1rem;
     left: 50%;
     transform: translateX(-50%);
-    animation: fadeIn 1s forwards;
+    animation: fadeIn 0.2s forwards;
+    z-index: 999;
     p {
         color: $white;
         max-width: 350px;
