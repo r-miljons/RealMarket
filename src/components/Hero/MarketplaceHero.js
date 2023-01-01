@@ -8,7 +8,6 @@ export default function MarketplaceHero() {
 	const navigate = useNavigate();
 	const { user } = useAuthContext();
     const { dispatch } = useErrorContext();
-    const [error, setError] = useState("");
 
 	function handleAddListing() {
 		if (user) {
@@ -34,7 +33,6 @@ export default function MarketplaceHero() {
 						<button className="gradient-btn" onClick={handleAddListing}>
 							Add a listing
 						</button>
-						{error && <div className="error">{error}</div>}
 					</div>
 				</div>
 

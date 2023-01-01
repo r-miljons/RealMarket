@@ -62,7 +62,7 @@ export default function MarketplaceFP() {
     <section className='item-section'>
       <div className='space-between'>
         <h2>Marketplace</h2>
-        <button className='more-marketplace-btn' onClick={() => navigate("/marketplace")}>More</button>
+        <button className='marketplace-btn btn-margin' onClick={() => navigate("/marketplace")}>More</button>
       </div>
       <div className='marketplace-container'>
         { listings && !loading ? renderMarketplaceListings() : renderLoadingPlaceholder() }

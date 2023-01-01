@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./SearchMarketplace.scss";
 
-export default function SearchMarketplace({setSearchString}) {
+export default function SearchMarketplace({setSearchString, placeholder}) {
     const [text, setText] = useState("");
 
     function handleSubmit(e) {
@@ -19,7 +19,7 @@ export default function SearchMarketplace({setSearchString}) {
 				<input
 					value={text}
 					onChange={(e) => setText(e.target.value)}
-					placeholder="Search for listings..."
+					placeholder={placeholder}
 				/>
 				<button type="submit" className="search">
 					<span className="material-symbols-outlined">search</span>

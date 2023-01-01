@@ -63,8 +63,8 @@ export default function MarketplaceListings() {
 
 	return (<div className="marketplace-listings-container">
 		<div className="actions-container">
-			<SearchMarketplace searchString={searchString} setSearchString={setSearchString}/>
-			<SortOptions setSortQuery={setSortQuery} sortQuery={sortQuery}/>
+			<SearchMarketplace setSearchString={setSearchString} placeholder="Search for listings..."/>
+			<SortOptions setSortQuery={setSortQuery}/>
 		</div>
 		{searchString && <p className="search-text">Search results for "{searchString}"</p>}
 		<div className='listings-wrapper'>
