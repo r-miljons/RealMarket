@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./MyListings.scss";
 import emptyDocuments from "../../assets/empty-documents.svg";
-import { useAuthContext } from "../../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import { useErrorContext } from "../../hooks/useErrorContext";
 import { renderDefaultImage } from "../../utils/renderDefaultImage";
 
-export default function MyListings() {
+export default function MyListings({userId, header}) {
     const [listings, setListings] = useState(null);
     const [loading, setLoading] = useState(false);
-    const { user } = useAuthContext();
     const { dispatch } = useErrorContext();
     const navigate = useNavigate()
 
@@ -17,7 +15,7 @@ export default function MyListings() {
         async function getMyListings() {
           setLoading(true);
           try {
-            const response = await fetch(process.env.REACT_APP_SERVER_URL + `/listings?user=${user.id}`);
+            const response = await fetch(process.env.REACT_APP_SERVER_URL + `/listings?user=${userId}`);
             const data = await response.json();
             setListings(data.data);
             setLoading(false);
@@ -27,7 +25,7 @@ export default function MyListings() {
           }
         }
         getMyListings();
-    }, [dispatch, user.id])
+    }, [dispatch, userId])
 
     function renderListings() {
 
@@ -82,7 +80,7 @@ export default function MyListings() {
 
 	return (
 		<div className="item-section">
-			<h2>Your Listings</h2>
+			<h2>{header}</h2>
             {listings && !loading ? renderListings() : renderLoadingPlaceholder()}
 		</div>
 	);

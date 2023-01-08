@@ -77,7 +77,7 @@ export default function Community() {
       <div className='user-container' key={user._id}>
         <div className='name-wrapper'>
           <h2 className='username'>{user.username}</h2>
-          <button className='marketplace-btn'>View</button>
+          <button className='marketplace-btn' onClick={() => navigate(`/user/${user.username}-${user._id}`)}>View</button>
         </div>
         <UserListingsPreview user={user}/>
       </div>

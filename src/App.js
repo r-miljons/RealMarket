@@ -7,6 +7,7 @@ import Home from "./routes/Home";
 import ListingPage from "./routes/ListingPage";
 import Marketplace from "./routes/Marketplace";
 import Profile from "./routes/Profile";
+import User from "./routes/User";
 import ScrollToTop from "./utils/scrollToTop";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
 							element={user ? <Profile /> : <Navigate to="/" />}
 						/>
 						<Route path="/listing/:id" element={<ListingPage />} />
+						<Route path="/user/:id" element={<User />} />
 					</Routes>
 					<Footer />
 				</div>

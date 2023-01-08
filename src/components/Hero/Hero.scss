@@ -8,6 +8,12 @@ section#page-hero {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	.hero-image-container {
+		img {
+			height: 300px;
+			width: auto;
+		}
+	}
 }
 
 .content-wrapper {
@@ -32,6 +38,16 @@ section#page-hero {
 	gap: 50px;
 }
 
+.hero-left-dark {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	background-color: hsla(0, 0%, 0%, 0.255);
+	height: 490px;
+	justify-content: center;
+	padding: 30px 20px;
+}
+
 .hero-text {
 	h1 {
 		font-weight: 700;
@@ -44,6 +60,16 @@ section#page-hero {
 		font-size: 21.33px;
 		color: $muted-text;
 		max-width: 600px;
+	}
+	.seller-info {
+		div {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+		}
+		p {
+			font-weight: 400;
+		}
 	}
 }
 

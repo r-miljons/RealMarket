@@ -99,14 +99,14 @@
                     gap: 10px;
                     margin-top: 20px;
                     align-items: center;
-                    img {
-                        cursor: pointer;
-                    }
-                    p {
+					span {
+						cursor: pointer;
+					}
+                    p, span {
                         color: $white;
                     }
                     &.off {
-                        p {
+                        p, span {
                             color: $alt-text;
                         }
                     }

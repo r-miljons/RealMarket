@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import userIcon from "../assets/user.svg";
 import mailIcon from "../assets/mail.svg";
 import phoneIcon from "../assets/phone-call.svg";
@@ -17,6 +17,7 @@ export default function ListingPage() {
 	const [loading, setLoading] = useState(true);
 	const { dispatch } = useErrorContext();
 	const { id } = useParams();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		setLoading(true);
@@ -38,7 +39,7 @@ export default function ListingPage() {
 
 	function renderListing() {
 		if (!listing) return;
-		
+
 		return (
 			<>
 				<div className="item-section-listing-page">
@@ -61,7 +62,7 @@ export default function ListingPage() {
 							<p className="posted-at">Posted: {formatDate(listing.createdAt)}</p>
 							<p>views: {listing.views}</p>
 							<div className="seller-info">
-								<div>
+								<div style={{cursor: "pointer"}} onClick={() => navigate(`/user/${listing.user.username}-${listing.user._id}`)}>
 									<img src={userIcon} alt="icon" />
 									<p>{listing.user.username}</p>
 								</div>

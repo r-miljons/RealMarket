@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { formatDate } from "../../utils/formatDate";
-import thumbsIcon from "../../assets/thumbs-up.svg";
-import thumbsOffIcon from "../../assets/thumbs-up-off.svg";
 import "./Comments.scss";
 import ClickOutsideWrapper from "../../utils/ClickOutsideWrapper";
 import { useErrorContext } from "../../hooks/useErrorContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Comment({comment, setComments}) {
     const {dispatch} = useErrorContext();
     const { user } = useAuthContext();
     const [openMore, setOpenMore] = useState(false);
+    const navigate = useNavigate();
 
     const likedIds = comment.likes.map(like => {
         return like._id
@@ -115,7 +115,7 @@ export default function Comment({comment, setComments}) {
 	return (
 		<div className="user-comment">
 			<div className="title">
-				<h3>{comment.user.username}</h3>
+				<h3 style={{cursor: "pointer"}} onClick={() => navigate(`/user/${comment.user.username}-${comment.user._id}`)}>{comment.user.username}</h3>
 				{user && comment.user._id === user.id && (
                     <div className="more">
                         <span className="material-symbols-outlined" onClick={() => {setOpenMore(!openMore)}}>more_vert</span>
@@ -134,25 +134,16 @@ export default function Comment({comment, setComments}) {
 				<p>{comment.text}</p>
 			</div>
 
-			{user ? (
+			
 				<div className={likedIds.includes(user.id) ? "likes" : "likes off"}>
-					<img
-						src={likedIds.includes(user.id) ? thumbsIcon : thumbsOffIcon}
-						alt="icon"
-						onClick={() => handleCommentLike(comment._id)}
-					/>
+          <span 
+            className="material-symbols-outlined" 
+            onClick={() => handleCommentLike(comment._id)}
+          >
+            thumb_up
+          </span>
 					<p>{likedIds.length}</p>
 				</div>
-			) : (
-				<div className="likes off">
-					<img
-						src={thumbsOffIcon}
-						alt="icon"
-						onClick={() => handleCommentLike(comment._id)}
-					/>
-					<p>{likedIds.length}</p>
-				</div>
-			)}
 		</div>
 	);
 }
